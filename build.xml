@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Phing Sync Script" basedir="." default="help">
+
+    <target name="help" description="Displays the available options">
+        <echo msg="$ phing sync - Sync files to an environment" />
+        <echo msg="$ phing sync:dryrun - List files that will be synced to an environment" />
+    </target>
+
+    <!-- Load properties for environment -->
+    <target name="get-env" description="Get the environment for an action">
+        <input propertyname="environment" validargs="staging,pre,prod" defaultvalue="staging">Enter environment name:</input>
+        <property file="${environment}.properties" />
+    </target>
+
+    <target name="sync" description="Sync files to an environment">
+        <phingcall target="-sync-execute-task">
+            <property name="dryrun" value="false" />
+        </phingcall>
+    </target>
+
+    <target name="sync:dryrun" description="List files that will be synced to an environment">
+        <phingcall target="-sync-execute-task">
+            <property name="dryrun" value="true" />
+        </phingcall>
+    </target>
+
+    <target name="-sync-execute-task" depends="get-env">
+        <taskdef name="sync" classname="phing.tasks.ext.FileSyncTask" />
+        <sync
+                sourcedir="${sync.source.dir}"
+                destinationdir="${sync.remote.user}@${sync.remote.host}:${sync.destination.dir}"
+                backupdir="${sync.destination.backup.dir}"
+                excludefile="${sync.exclude.file}"
+                verbose="true"
+                options="-e 'ssh -p ${sync.remote.port}' -rKzl"
+                dryrun="${dryrun}"
+                itemizechanges="true"
+                checksum="true"
+        />
+        <!-- options: -->
+        <!-- -e, -rsh, specify the remote shell to use -->
+        <!-- -r, -recursive, recurse into directories -->
+        <!-- -K, -keep-dirlinks, treat symlinked dir on receiver as dir -->
+        <!-- -z, -compress, compress file data during the transfer -->
+        <!-- -l, -links, copy symlinks as symlinks -->
+        <!-- -t, -times, preserve modification times -->
+        <!-- -O, -omit-dir-times, omit directories from -times -->
+    </target>
+
+</project>
