@@ -5,6 +5,7 @@ This is a Phing build.xml script used to upload websites to remote servers.
 https://www.phing.info
 
 The build.xml uses Phing's FileSyncTask to handle the file uploads so you'll need web hosting that supports SSH login.
+SSH will prompt you for the password if you're not using SSH keys to connect.
 
 You can see precisely what will be uploaded beforehand using the “sync:dryrun” option.
 
@@ -35,7 +36,6 @@ sync.exclude.file = sync.exclude
 sync.remote.host = ssh-host
 sync.remote.port = 22
 sync.remote.user = ssh-user
-sync.remote.password = ssh-password
 ```
 
 | Config option | Description |
@@ -47,7 +47,6 @@ sync.remote.password = ssh-password
 | sync.remote.host | Hostname of remote server |
 | sync.remote.port | Port of remote server |
 | sync.remote.user | SSH username |
-| sync.remote.password | SSH password |
 
 
 ## Usage
