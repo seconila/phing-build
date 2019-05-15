@@ -62,3 +62,7 @@ Only list files that will be uploaded to an environment - nothing will actually 
 **phing sync**
 
 Upload files to an environment. An itemised list will be displayed.
+
+**phing ssh**
+
+Opens an SSH session to an environment.

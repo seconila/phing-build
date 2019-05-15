@@ -4,6 +4,7 @@
     <target name="help" description="Displays the available options">
         <echo msg="$ phing sync - Sync files to an environment" />
         <echo msg="$ phing sync:dryrun - List files that will be synced to an environment" />
+        <echo msg="$ phing ssh - SSH to an environment" />
     </target>
 
     <!-- Load properties for environment -->
@@ -45,6 +46,10 @@
         <!-- -l, -links, copy symlinks as symlinks -->
         <!-- -t, -times, preserve modification times -->
         <!-- -O, -omit-dir-times, omit directories from -times -->
+    </target>
+
+    <target name="ssh" description="SSH to an environment" depends="get-env">
+        <exec command="ssh ${sync.remote.user}@${sync.remote.host} -p${sync.remote.port}" passthru="true" />
     </target>
 
 </project>
