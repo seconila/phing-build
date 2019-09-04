@@ -1,6 +1,6 @@
 # phing-build
 
-This is a Phing build.xml script used to upload websites to remote servers.
+This is a Phing build.xml script for uploading a website to a remote server environment.
 
 https://www.phing.info
 
@@ -14,8 +14,8 @@ You can see precisely what will be uploaded beforehand using the â€œsync:dryrunâ
 The build.xml supports 3 environments as standard:
 
 * prod (production)
-* pre (pre-live, clients can upload content without the worry of it being destroyed by developers)
-* staging (used for initial client preview and feedback)
+* pre (pre-live, the customer can upload content without fear of it being destroyed or overwritten by developers)
+* staging (used for initial customer preview and feedback)
 
 ## Setup
 
@@ -31,7 +31,7 @@ Copy the `env.properties.dist` file to either `prod.properties`, `pre.properties
 // Note forward slashes after folders
 sync.source.dir = /full/path/to/dir/
 sync.destination.dir = /full/path/to/dir/
-sync.destination.backup.dir = /full/path/to/dir/backup/
+sync.destination.backup.dir = /full/path/to/backup/dir/
 sync.exclude.file = sync.exclude
 sync.remote.host = ssh-host
 sync.remote.port = 22
@@ -40,14 +40,13 @@ sync.remote.user = ssh-user
 
 | Config option | Description |
 | ------------- | -----|
-| sync.source.dir | Full path where files are stored locally on your system |
-| sync.destination.dir | Full path where files are stored on remote server |
-| sync.destination.backup.dir | Full path where files that were replaced during the transfer will be backed up on remote server |
+| sync.source.dir | Full path to where files are stored locally on your system |
+| sync.destination.dir | Full path to where files are stored on the remote server |
+| sync.destination.backup.dir | Full path to where files that were replaced during the transfer will be backed up on the remote server |
 | sync.exclude.file | Path of sync.exclude file |
-| sync.remote.host | Hostname of remote server |
-| sync.remote.port | Port of remote server |
+| sync.remote.host | Hostname of the remote server |
+| sync.remote.port | Port of the remote server |
 | sync.remote.user | SSH username |
-
 
 ## Usage
 
@@ -57,12 +56,18 @@ Displays the available options.
 
 **phing sync:dryrun**
 
-Only list files that will be uploaded to an environment - nothing will actually get uploaded to the remote server. An itemised list will be displayed.
+Only list files that will be uploaded - nothing will actually be uploaded to the remote server. An itemised list will be displayed.
 
 **phing sync**
 
-Upload files to an environment. An itemised list will be displayed.
+Upload files to an environment immediately. An itemised list will be displayed.
 
 **phing ssh**
 
 Opens an SSH session to an environment.
+
+## Passing parameters directly to FileSyncTask from the command-line
+
+**phing sync-execute-task -Ddryrun=true -propertyfile prod.properties**
+
+The above example shows a dryrun to the prod environment using Phing's -D<property>=<value> and -propertyfile arguments.
