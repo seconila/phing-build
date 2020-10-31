@@ -1,17 +1,17 @@
 # phing-build
 
-This is a Phing build.xml script for uploading a website to a remote server environment.
+This is a Phing build.xml script for uploading a website to a remote server.
 
 https://www.phing.info
 
 The build.xml uses Phing's FileSyncTask to handle the file uploads so you'll need web hosting that supports SSH login.
 SSH will prompt you for the password if you're not using SSH keys to connect.
 
-You can see precisely what will be uploaded beforehand using the “sync:dryrun” option.
+You can see precisely what will be uploaded beforehand using the `sync:dryrun` option.
 
 ## Environments
 
-The build.xml supports 3 environments as standard:
+The build.xml supports 3 remote environments as standard:
 
 * prod (production)
 * pre (pre-live, the customer can upload content without fear of it being destroyed or overwritten by developers)
@@ -60,13 +60,30 @@ Only list files that will be uploaded - nothing will actually be uploaded to the
 
 **phing sync**
 
-Upload files to an environment immediately. An itemised list will be displayed.
+Upload files to a remote server immediately. An itemised list will be displayed.
 
 **phing ssh**
 
-Opens an SSH session to an environment.
+Opens an SSH session to a remote server.
 
-## Passing parameters directly to FileSyncTask from the command-line
+## Setting up passwordless SSH login
+
+Create the RSA key pair using:
+
+    ssh-keygen
+
+By default, this will create the private and public key files in your ~/.ssh folder:
+
+    ~/.ssh/id_rsa
+    ~/.ssh/id_rsa.pub
+
+Copy the public key to the remote server using `ssh-copy-id`. This is a one-time operation and allows you to execute sync and ssh tasks without password prompts. E.g.:
+
+    ssh-copy-id remote-user@remote-host.com
+
+You can execute `phing ssh` to test passwordless SSH login.
+
+## Passing parameters directly to FileSyncTask from the command-line for batch scripting
 
 **phing sync-execute-task -Ddryrun=true -propertyfile prod.properties**
 
