@@ -85,6 +85,6 @@ You can execute `phing ssh` to test passwordless SSH login.
 
 ## Passing parameters directly to FileSyncTask from the command-line for batch scripting
 
-**phing sync-execute-task -Ddryrun=true -propertyfile prod.properties**
+`phing sync-execute-task -Ddryrun=true -propertyfile prod.properties`
 
 The above example shows a dryrun to the prod environment using Phing's -D<property>=<value> and -propertyfile arguments.
