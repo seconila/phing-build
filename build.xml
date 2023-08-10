@@ -54,7 +54,7 @@
     </target>
 
     <target name="ssh-copy-id" description="Copy an SSH key to an environment" depends="get-env">
-        <exec command="ssh -p${sync.remote.port} ${sync.remote.user}@${sync.remote.host}" passthru="true" />
+        <exec command="ssh-copy-id -p${sync.remote.port} ${sync.remote.user}@${sync.remote.host}" passthru="true" />
     </target>
 
 </project>
