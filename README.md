@@ -62,6 +62,10 @@ Only list files that will be uploaded - nothing will actually be uploaded to the
 
 Upload files to a remote server immediately. An itemised list will be displayed.
 
+**phing ssh-copy-id**
+
+Copies an SSH key to a remote server.
+
 **phing ssh**
 
 Opens an SSH session to a remote server.
@@ -81,7 +85,7 @@ Copy the public key to the remote server using `ssh-copy-id`. This is a one-time
 
     ssh-copy-id remote-user@remote-host.com
 
-You can execute `phing ssh` to test passwordless SSH login.
+You can execute `phing ssh-copy-id` to copy the key and `phing ssh` to test passwordless SSH login.
 
 ## Passing parameters directly to FileSyncTask from the command-line for batch scripting
 

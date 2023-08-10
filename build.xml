@@ -5,6 +5,7 @@
         <echo msg="$ phing sync - Sync files to an environment" />
         <echo msg="$ phing sync:dryrun - List files that will be synced to an environment" />
         <echo msg="$ phing ssh - SSH to an environment" />
+        <echo msg="$ phing ssh-copy-id - Copy an SSH key to an environment" />
     </target>
 
     <!-- Load properties for environment -->
@@ -50,6 +51,10 @@
 
     <target name="ssh" description="SSH to an environment" depends="get-env">
         <exec command="ssh ${sync.remote.user}@${sync.remote.host} -p${sync.remote.port}" passthru="true" />
+    </target>
+
+    <target name="ssh-copy-id" description="Copy an SSH key to an environment" depends="get-env">
+        <exec command="ssh -p${sync.remote.port} ${sync.remote.user}@${sync.remote.host}" passthru="true" />
     </target>
 
 </project>
